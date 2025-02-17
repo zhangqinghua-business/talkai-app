@@ -40,8 +40,6 @@ jobs:
       - name: 下载图标
         if: ${{ github.event.inputs.productIcon != '' }}
         run: |
-          rm -rf assets
-          mkdir -p assets
           curl -f -o assets/icon.png ${{ github.event.inputs.productIcon }}
 
       - name: 编译应用
