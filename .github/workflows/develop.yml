@@ -1,0 +1,64 @@
+name: 开发环境
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Your name'
+        required: false
+        default: 'World'
+      age:
+        description: 'Your age'
+        required: false
+        default: '30'
+      productIcon:
+        default: ''
+        required: false
+        description: '应用图标'
+      productName:
+        default: 'talkai'
+        required: false
+        description: '应用名称'
+        
+# 全局环境变量
+env:
+  BRANCH: product
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          BRANCH: ${{ env.BRANCH }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set dynamic product name
+        id: set_product_name
+        run: |
+          # 设置动态的 productName
+          PRODUCT_NAME="MyApp-${{ runner.os }}-${{ github.sha }}"
+          echo "PRODUCT_NAME=$PRODUCT_NAME" >> $GITHUB_ENV
+
+      - name: Build Electron app
+        run: npm run build
+        env:
+          PRODUCT_NAME: ${{ env.PRODUCT_NAME }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-build
+          path: dist/
+          
