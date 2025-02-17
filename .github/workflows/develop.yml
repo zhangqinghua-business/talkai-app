@@ -47,7 +47,7 @@ jobs:
       - name: Build Electron app
         run: npm run build
         env:
-          PRODUCT_NAME: ${{ env.PRODUCT_NAME }}
+          PRODUCT_NAME: ${{ github.event.inputs.productName }}
       - run: ls -l release
 
           
