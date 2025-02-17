@@ -5,24 +5,42 @@ on:
     inputs:
       name:
         description: 'Your name'
-        required: true
+        required: false
         default: 'World'
       age:
         description: 'Your age'
         required: false
         default: '30'
-
-    
+      productIcon:
+        default: ''
+        required: false
+        description: '应用图标'
+      productName:
+        default: 'talkai'
+        required: false
+        description: '应用名称'
+        
 jobs:
   your-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 拉取代码
         uses: actions/checkout@v3
-
-      - name: Run a script
-        run: echo "Workflow triggered via API"
-      - name: 环境检查
+        
+      - name: 环境预置
         run: |
           echo "Hello, ${{ github.event.inputs.name }}!"
           echo "You are ${{ github.event.inputs.age }} years old."
+          # 下载图片
+
+          # 定义名称
+          PRODUCT_NAME=${{ github.event.inputs.productName }}
+          
+      - name: 编译代码
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          npm i
+          npm run build:win
+          ls -l
+          ls -l release
+          
