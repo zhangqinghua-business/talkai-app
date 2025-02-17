@@ -50,6 +50,7 @@ jobs:
         
       - name: 编译代码
         run: |
+          set PRODUCT_NAME=aabbcc
           npm run build:win
           ls -l release
           
