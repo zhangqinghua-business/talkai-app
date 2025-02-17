@@ -20,13 +20,19 @@ on:
         required: false
         description: '应用名称'
         
+# 全局环境变量
+env:
+  BRANCH: product
+
 jobs:
   your-job:
     runs-on: ubuntu-latest
     steps:
       - name: 拉取代码
         uses: actions/checkout@v3
-        
+        with:
+          ref: ${{env.BRANCH}}
+          
       - name: 环境预置
         run: |
           echo "Hello, ${{ github.event.inputs.name }}!"
