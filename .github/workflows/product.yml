@@ -2,7 +2,15 @@ name: 生产环境
 
 on:
   workflow_dispatch:
-  
+    inputs:
+      name:
+        description: 'Your name'
+        required: true
+        default: 'World'
+      age:
+        description: 'Your age'
+        required: false
+        default: '30'
 
     
 jobs:
