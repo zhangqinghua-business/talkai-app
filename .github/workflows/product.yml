@@ -50,6 +50,5 @@ jobs:
       - name: 编译代码
         run: |
           npm run build:win
-          ls -l
           ls -l release
           
