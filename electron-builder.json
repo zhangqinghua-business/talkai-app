@@ -1,4 +1,5 @@
 {
+  "public": false,
   "appId": "com.zhangqinghua.app",
   "productName": "小鸟AI",
   "directories": {
