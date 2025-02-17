@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,13 +43,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Set dynamic product name
-        id: set_product_name
-        run: |
-          # 设置动态的 productName
-          PRODUCT_NAME="MyApp-${{ runner.os }}-${{ github.sha }}"
-          echo "PRODUCT_NAME=$PRODUCT_NAME" >> $GITHUB_ENV
 
       - name: Build Electron app
         run: npm run build
