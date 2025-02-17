@@ -1,0 +1,36 @@
+{
+  "appId": "com.zhangqinghua.app",
+  "productName": "AI小红书获客",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ],
+  "win": {
+    "icon": "assets/AI小红书获客.png",
+    "target": {
+      "target": "nsis",
+      "arch": [
+        "x64"
+      ]
+    }
+  },
+  "mac": {
+    "icon": "assets/AI小红书获客.png",
+    "target": [
+      "dmg",
+      "zip"
+    ]
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "shortcutName": "${productName}",
+    "uninstallDisplayName": "${productName}",
+    "deleteAppDataOnUninstall": true,
+    "allowToChangeInstallationDirectory": true,
+    "guid": "3cdfa682-d08c-4296-aa34-6d14b08f4826"
+  }
+}

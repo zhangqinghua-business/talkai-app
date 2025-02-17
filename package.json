@@ -1,0 +1,23 @@
+{
+  "name": "talkai-app",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "tsc && electron .",
+    "prebuild": "node ./src/generate-guid.js",
+    "build": "tsc && npm run prebuild && electron-builder",
+    "build:win": "tsc && npm run prebuild && electron-builder --win",
+    "build:mac": "tsc && npm run prebuild && electron-builder --mac"
+  },
+  "author": "zhangqinghua",
+  "license": "ISC",
+  "description": "this is a electron demo",
+  "devDependencies": {
+    "@types/electron": "^1.6.12",
+    "@types/node": "^22.10.1",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
