@@ -55,10 +55,6 @@ jobs:
         run: npm run build
         env:
           PRODUCT_NAME: ${{ env.PRODUCT_NAME }}
+      - run: ls -l release
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ runner.os }}-build
-          path: dist/
           
