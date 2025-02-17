@@ -1,6 +1,6 @@
 {
   "appId": "com.zhangqinghua.app",
-  "productName": "AI小红书获客",
+  "productName": "小鸟AI",
   "directories": {
     "output": "release"
   },
@@ -9,7 +9,7 @@
     "package.json"
   ],
   "win": {
-    "icon": "assets/AI小红书获客.png",
+    "icon": "assets/icon.png",
     "target": {
       "target": "nsis",
       "arch": [
@@ -18,7 +18,7 @@
     }
   },
   "mac": {
-    "icon": "assets/AI小红书获客.png",
+    "icon": "assets/icon.png",
     "target": [
       "dmg",
       "zip"
@@ -31,6 +31,6 @@
     "uninstallDisplayName": "${productName}",
     "deleteAppDataOnUninstall": true,
     "allowToChangeInstallationDirectory": true,
-    "guid": "3cdfa682-d08c-4296-aa34-6d14b08f4826"
+    "guid": "261e8d0f-3307-4c5e-af08-501d06bc39d8"
   }
 }
