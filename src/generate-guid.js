@@ -20,6 +20,8 @@ const guid = () => {
 
 // 3. 动态修改应用名称
 const productName = process.env.PRODUCT_NAME || 'unkonw_app'
+console.log('productName: ', productName);
+
 // electronJson.productName = productName;
 
 // 4. 重新写入文件
