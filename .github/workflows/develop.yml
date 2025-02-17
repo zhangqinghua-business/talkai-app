@@ -41,7 +41,7 @@ jobs:
         if: ${{ github.event.inputs.productIcon != '' }}
         run: |
           mkdir -p assets
-          curl -o assets/icon.png ${{ github.event.inputs.productIcon }}
+          curl -f -o assets/icon.png ${{ github.event.inputs.productIcon }}
 
       - name: 编译应用
         run: npm run build
