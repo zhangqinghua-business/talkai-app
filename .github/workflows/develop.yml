@@ -62,5 +62,8 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
+           curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/talkai-1.0.0-arm64.dmg
+
+
 
 
