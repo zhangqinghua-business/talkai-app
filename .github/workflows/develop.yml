@@ -49,6 +49,7 @@ jobs:
       - run: ls -l release
       - name: 申请上传地址
         id: upload-url
+        shell: bash
         run: |
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
             contentType="application/octet-stream"
