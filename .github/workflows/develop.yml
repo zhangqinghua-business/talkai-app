@@ -56,7 +56,7 @@ jobs:
         id: parse-upload-url
         shell: bash
         run: |
-          uploadUrl=$(echo ${{ steps.upload-url.outputs.response }} | jq -r '.data.uploadUrl')
+          uploadUrl=$(echo '${{ steps.upload-url.outputs.response }}' | jq -r '.data.uploadUrl')
           echo ${uploadUrl}
 
 
