@@ -60,5 +60,6 @@ jobs:
 
       - name: 解析上传地址
         id: parse-upload-url
+        shell: bash
         run: echo "::set-output name=uploadUrl::$([[ $(jq -r '.data.uploadUrl' ${{ steps.upload-url.outputs.stdout }}) ]] )"
 
