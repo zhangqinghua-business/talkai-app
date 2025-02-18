@@ -51,10 +51,11 @@ jobs:
         run: |
           contentType=application/x-apple-diskimage
           
-          response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d '{"contentType": "$contentType"}')
+          response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"$contentType\"}")
           
           fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
+
           echo $response
           echo ${response}
           
