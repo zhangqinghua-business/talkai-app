@@ -50,8 +50,7 @@ jobs:
       - name: 申请上传地址
         id: upload-url
         run: |
-          $os = $env:RUNNER_OS
-          if ($os -eq "windows-latest") {
+          if (${{ matrix.os }} -eq "windows-latest") {
             $contentType = "application/octet-stream"
           } else {
             $contentType = "application/x-apple-diskimage"
