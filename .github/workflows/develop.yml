@@ -48,12 +48,7 @@ jobs:
         id: upload-url
         shell: bash
         run: |
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            contentType="application/octet-stream"
-          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-            contentType="application/x-apple-diskimage"
-          fi
-          curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"${contentType}\"}"
+          curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d '{"contentType": "application/x-apple-diskimage"}'
 
       - name: 解析上传地址
         id: parse-upload-url
@@ -63,8 +58,6 @@ jobs:
       - name: 上传应用
         run: |
           uploadUrl=$(echo ${{ steps.parse-upload-url.outputs.uploadUrl }})
-          curl --location --request PUT "$uploadUrl" \
-          --header 'Content-Type: $(if [ "${{ matrix.os }}" == "windows-latest" ]; then echo "application/octet-stream"; else echo "application/x-apple-diskimage"; fi)' \
-          --data-binary @release/${{ github.event.inputs.productName }}-${{ matrix.os }}-${{ github.sha }}.zip
+          echo uploadUrl
 
 
