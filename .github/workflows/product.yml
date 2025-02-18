@@ -3,6 +3,10 @@ name: 生产环境
 on:
   workflow_dispatch:
     inputs:
+      id:
+        default: '100101'
+        required: true
+        description: '任务编号'
       api:
         default: 'https://api.panshu.com.cn'
         required: true
@@ -126,7 +130,7 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-          # curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.exe
+          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.exe
           
           echo "::set-output name=fileUrl::$fileUrl"
           
@@ -139,4 +143,8 @@ jobs:
         run: |
           echo ${{ needs.build_macos.outputs.fileUrl }}
           echo ${{ needs.build_windows.outputs.fileUrl }}
+          windows=${{ needs.build_windows.outputs.fileUrl }}
+          appleIntel=${{ needs.build_macos.outputs.fileUrl }}
+
+          curl -X POST ${{ github.event.inputs.api }}/base/software_record/built -H "Content-Type: application/json" -d "{\"id\": \"${{ github.event.inputs.homePage }}\", \"software\": { \"windows\": \"$windows\", \"appleIntel\": \"$appleIntel\" } }"
 
