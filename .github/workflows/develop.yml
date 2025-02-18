@@ -96,7 +96,7 @@ jobs:
         id: upload-url
         shell: bash
         run: |
-          contentType=application/x-apple-diskimage
+          contentType=application/octet-stream
           
           response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"$contentType\"}")
           
@@ -109,7 +109,7 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-           curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/talkai-1.0.0-arm64.dmg
+          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/talkai Setup 1.0.0.exe
 
 
 
