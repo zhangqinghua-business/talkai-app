@@ -52,7 +52,7 @@ const createWindow = async () => {
   // mainWindow?.loadURL('https://ai.mabbk.cn/home')
   // mainWindow?.loadURL('https://vipai.m3xm.cn/home')
   // mainWindow?.loadURL('https://xiaoniaoai.yunjiazd.com/home')
-  mainWindow?.loadURL(process.env.HOME_PAGE || 'https://chat.xiaoniaoai.com/home')
+  mainWindow?.loadURL(process.env.HOME_PAGE || 'https://www.baidu.com')
 }
 
 // 创建窗口
