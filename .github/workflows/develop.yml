@@ -17,12 +17,9 @@ env:
   BRANCH: product
 
 jobs:
-  build:
-    name: 编译应用
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
+  build_macos:
+    name: 编译应用(macOS)
+    runs-on: macos-latest
     steps:
       - name: 拉取代码
         uses: actions/checkout@v3
