@@ -49,9 +49,10 @@ const createWindow = async () => {
   // mainWindow?.loadURL('https://test.xiaoniaoai.com/home')
   // mainWindow?.loadURL('https://ai.zmt.cool/home')
   // mainWindow?.loadURL('https://juyunapp.cn/home')
-  mainWindow?.loadURL('https://ai.mabbk.cn/home')
+  // mainWindow?.loadURL('https://ai.mabbk.cn/home')
   // mainWindow?.loadURL('https://vipai.m3xm.cn/home')
   // mainWindow?.loadURL('https://xiaoniaoai.yunjiazd.com/home')
+  mainWindow?.loadURL(process.env.HOME_PAGE || 'https://chat.xiaoniaoai.com/home')
 }
 
 // 创建窗口

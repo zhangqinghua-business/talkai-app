@@ -19,7 +19,7 @@ const electronJson = JSON.parse(fs.readFileSync("electron-builder.json"));
 // electronJson.nsis.guid = guid();
 
 // 3. 动态修改应用名称
-const productName = process.env.PRODUCT_NAME || 'unkonw_app'
+const productName = process.env.APP_NAME || 'unkonw_app'
 console.log('productName: ', productName);
 
 electronJson.productName = productName;
