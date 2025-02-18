@@ -3,13 +3,17 @@ name: 生产环境
 on:
   workflow_dispatch:
     inputs:
-      productIcon:
+      api:
+        default: 'https://api.panshu.com.cn'
+        required: true
+        description: '接口地址'
+      icon:
         default: ''
         required: false
         description: '应用图标'
-      productName:
+      name:
         default: 'talkai'
-        required: false
+        required: true
         description: '应用名称'
         
 # 全局环境变量
@@ -37,14 +41,14 @@ jobs:
         run: npm install
 
       - name: 下载图标
-        if: ${{ github.event.inputs.productIcon != '' }}
+        if: ${{ github.event.inputs.icon != '' }}
         run: |
-          curl -f -o assets/icon.png ${{ github.event.inputs.productIcon }}
+          curl -f -o assets/icon.png ${{ github.event.inputs.icon }}
 
       - name: 编译应用
         run: npm run build
         env:
-          PRODUCT_NAME: ${{ github.event.inputs.productName }}
+          PRODUCT_NAME: ${{ github.event.inputs.name }}
       - run: ls -l release
       
       - name: 上传应用
@@ -53,7 +57,7 @@ jobs:
         run: |
           contentType=application/x-apple-diskimage
           
-          response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"$contentType\"}")
+          response=$(curl -X POST ${{ github.event.inputs.api }}/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"$contentType\"}")
           
           fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
@@ -87,14 +91,14 @@ jobs:
         run: npm install
 
       - name: 下载图标
-        if: ${{ github.event.inputs.productIcon != '' }}
+        if: ${{ github.event.inputs.icon != '' }}
         run: |
-          curl -f -o assets/icon.png ${{ github.event.inputs.productIcon }}
+          curl -f -o assets/icon.png ${{ github.event.inputs.icon }}
 
       - name: 编译应用
         run: npm run build
         env:
-          PRODUCT_NAME: ${{ github.event.inputs.productName }}
+          PRODUCT_NAME: ${{ github.event.inputs.name }}
       - run: ls -l release
       
       - name: 上传应用
@@ -103,7 +107,7 @@ jobs:
         run: |
           contentType=application/octet-stream
           
-          response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"$contentType\"}")
+          response=$(curl -X POST ${{ github.event.inputs.api }}/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"$contentType\"}")
           
           fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
