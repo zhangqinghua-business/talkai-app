@@ -146,5 +146,5 @@ jobs:
           windows=${{ needs.build_windows.outputs.fileUrl }}
           appleIntel=${{ needs.build_macos.outputs.fileUrl }}
 
-          curl -X POST ${{ github.event.inputs.api }}/base/software_record/built -H "Content-Type: application/json" -d "{\"id\": \"${{ github.event.inputs.homePage }}\", \"software\": { \"windows\": \"$windows\", \"appleIntel\": \"$appleIntel\" } }"
+          curl -X POST ${{ github.event.inputs.api }}/base/software_record/built -H "Content-Type: application/json" -d "{\"id\": \"${{ github.event.inputs.id }}\", \"software\": { \"windows\": \"$windows\", \"appleIntel\": \"$appleIntel\" } }"
 
