@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d '{"contentType": "application/x-apple-diskimage"}')
-          fileUrl=$(echo "$response" | jq -r '.fileUrl')
+          fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
           
           echo ${fileUrl}
