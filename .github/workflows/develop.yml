@@ -47,3 +47,12 @@ jobs:
         env:
           PRODUCT_NAME: ${{ github.event.inputs.productName }}
       - run: ls -l release
+      - name: 申请上传地址
+        id: upload-url
+        run: |
+          if [ "${{ matrix.os }}" == "windows-latest" ]; then
+            contentType="application/octet-stream"
+          else
+            contentType="application/x-apple-diskimage"
+          fi
+          curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"${contentType}\"}"
