@@ -55,7 +55,9 @@ jobs:
           
           fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
-
+          echo $response
+          echo ${response}
+          
           echo ${fileUrl}
           echo ${uploadUrl}
 
