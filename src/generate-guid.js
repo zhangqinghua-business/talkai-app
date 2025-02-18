@@ -24,7 +24,7 @@ console.log('productName: ', productName);
 
 electronJson.productName = productName;
 // 在 github windows-laestest 环境中不能读取带空格的文件路径，所以直接修改安装包名字 -> talkai Setup 1.0.0.exe
-electronJson.win.artifactName = productName + '.exe'
+// electronJson.win.artifactName = productName + '.exe'
 // electronJson.artifactName = productName;
 
 // 4. 重新写入文件

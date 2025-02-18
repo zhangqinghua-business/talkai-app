@@ -11,19 +11,19 @@
   ],
   "win": {
     "icon": "assets/icon.png",
+    "artifactName": "install.exe",
     "target": {
       "target": "nsis",
       "arch": [
         "x64"
       ]
-    },
-    "artifactName": "unkonw_app.exe"
+    }
   },
   "mac": {
     "icon": "assets/icon.png",
+    "artifactName": "install.dmg",
     "target": [
-      "dmg",
-      "zip"
+      "dmg"
     ]
   },
   "nsis": {
