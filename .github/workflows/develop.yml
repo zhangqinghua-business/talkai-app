@@ -58,7 +58,7 @@ jobs:
       - name: 上传应用
         run: |
           uploadUrl=$(echo ${{ steps.parse-upload-url.outputs.uploadUrl }})
-          echo ${contentType}
+          echo ${uploadUrl}
           
 
 
