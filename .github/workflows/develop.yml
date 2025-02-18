@@ -57,3 +57,8 @@ jobs:
             contentType="application/x-apple-diskimage"
           fi
           curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"${contentType}\"}"
+
+      - name: 解析上传地址
+        id: parse-upload-url
+        run: echo "::set-output name=uploadUrl::$([[ $(jq -r '.data.uploadUrl' ${{ steps.upload-url.outputs.stdout }}) ]] )"
+
