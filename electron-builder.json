@@ -1,8 +1,8 @@
 {
   "publish": false,
   "appId": "com.zhangqinghua.app",
-  "filename": "unkonw_app",
   "productName": "unkonw_app",
+  "artifactName": "unkonw_app",
   "directories": {
     "output": "release"
   },
