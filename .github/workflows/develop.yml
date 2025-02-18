@@ -49,24 +49,23 @@ jobs:
         id: upload-url
         shell: bash
         run: |
-          response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d '{"contentType": "application/x-apple-diskimage"}')
+          contentType=application/x-apple-diskimage
+          
+          response=$(curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d '{"contentType": "$contentType"}')
+          
           fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
           
           echo ${fileUrl}
           echo ${uploadUrl}
+
+          curl --location --request PUT "$uploadUrl" \
+          --header 'Content-Type: $contentType' \
+          --data-binary @release/${{ github.event.inputs.productName }}-${{ matrix.os }}-${{ github.sha }}.zip
+
           
           echo "::set-output name=response::$response"
 
-      - name: 上传文件
-        id: parse-upload-url
-        shell: bash
-        run: |
-          uploadUrl=$(echo '${{ steps.upload-url.outputs.response }}' | jq -r '.data.uploadUrl')
-          echo ${uploadUrl}
-          curl --location --request PUT "$uploadUrl" \
-          --header 'Content-Type: $(if [ "${{ matrix.os }}" == "windows-latest" ]; then echo "application/octet-stream"; else echo "application/x-apple-diskimage"; fi)' \
-          --data-binary @release/${{ github.event.inputs.productName }}-${{ matrix.os }}-${{ github.sha }}.zip
 
 
 
