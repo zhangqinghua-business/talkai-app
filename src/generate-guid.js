@@ -23,7 +23,7 @@ const productName = process.env.PRODUCT_NAME || 'unkonw_app'
 console.log('productName: ', productName);
 
 electronJson.productName = productName;
-electronJson.artifactName = productName;
+// electronJson.artifactName = productName;
 
 // 4. 重新写入文件
 fs.writeFileSync("electron-builder.json", JSON.stringify(electronJson, null, 2));
