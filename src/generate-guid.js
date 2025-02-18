@@ -23,6 +23,8 @@ const productName = process.env.PRODUCT_NAME || 'unkonw_app'
 console.log('productName: ', productName);
 
 electronJson.productName = productName;
+// 在 github windows-laestest 环境中不能读取带空格的文件路径，所以直接改最终生成品
+electronJson.win.artifactName = productName + '.exe'
 // electronJson.artifactName = productName;
 
 // 4. 重新写入文件
