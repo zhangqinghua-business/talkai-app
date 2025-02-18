@@ -109,7 +109,7 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/talkai Setup 1.0.0.exe
+          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/builder-debug.yml
 
 
 
