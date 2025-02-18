@@ -45,7 +45,7 @@ jobs:
           PRODUCT_NAME: ${{ github.event.inputs.productName }}
       - run: ls -l release
       
-      - name: 申请上传
+      - name: 上传应用
         id: upload-url
         shell: bash
         run: |
@@ -55,18 +55,6 @@ jobs:
           
           fileUrl=$(echo "$response" | jq -r '.data.fileUrl')
           uploadUrl=$(echo "$response" | jq -r '.data.uploadUrl')
-          
-          echo ${fileUrl}
-          echo ${uploadUrl}
-
-          curl --location --request PUT "$uploadUrl" \
-          --header 'Content-Type: $contentType' \
-          --data-binary @release/${{ github.event.inputs.productName }}-${{ matrix.os }}-${{ github.sha }}.zip
-
-          
-          echo "::set-output name=response::$response"
-
-
 
 
 
