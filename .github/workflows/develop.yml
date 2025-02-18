@@ -62,7 +62,7 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/talkai-1.0.0-arm64.dmg
+          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.dmg
           
   build_windows:
     name: 编译应用(Windows)
@@ -109,7 +109,7 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-          # curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/talkai.exe
+          # curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.exe
 
 
 
