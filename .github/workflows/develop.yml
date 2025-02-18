@@ -20,6 +20,8 @@ jobs:
   build_macos:
     name: 编译应用(macOS)
     runs-on: macos-latest
+    outputs:
+      fileUrl: ${{ steps.upload.outputs.fileUrl }}
     steps:
       - name: 拉取代码
         uses: actions/checkout@v3
@@ -46,7 +48,7 @@ jobs:
       - run: ls -l release
       
       - name: 上传应用
-        id: upload-url
+        id: upload
         shell: bash
         run: |
           contentType=application/x-apple-diskimage
@@ -63,10 +65,13 @@ jobs:
           echo ${uploadUrl}
 
           curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.dmg
+          echo "::set-output name=fileUrl::$fileUrl"
           
   build_windows:
     name: 编译应用(Windows)
     runs-on: windows-latest
+    outputs:
+      fileUrl: ${{ steps.upload.outputs.fileUrl }}
     steps:
       - name: 拉取代码
         uses: actions/checkout@v3
@@ -93,7 +98,7 @@ jobs:
       - run: ls -l release
       
       - name: 上传应用
-        id: upload-url
+        id: upload
         shell: bash
         run: |
           contentType=application/octet-stream
@@ -110,6 +115,16 @@ jobs:
           echo ${uploadUrl}
 
           # curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.exe
-
-
+          
+          echo "::set-output name=fileUrl::$fileUrl"
+          
+  post_build:
+    name: 数据汇总
+    runs-on: ubuntu-lastest
+    needs: [build_macos, build_windows] 
+    steps:
+      - name: 整理数据
+        run: |
+          echo ${{ needs.build_macos.outputs.fileUrl }}
+          echo ${{ needs.build_windows.outputs.fileUrl }}
 
