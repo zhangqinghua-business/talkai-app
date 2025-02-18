@@ -50,9 +50,10 @@ jobs:
       - name: 申请上传地址
         id: upload-url
         run: |
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            contentType="application/octet-stream"
-          else
-            contentType="application/x-apple-diskimage"
-          fi
+          $os = $env:RUNNER_OS
+          if ($os -eq "windows-latest") {
+            $contentType = "application/octet-stream"
+          } else {
+            $contentType = "application/x-apple-diskimage"
+          }
           curl -X POST https://api.panshu.com.cn/base/oss/upload_url -H "Content-Type: application/json" -d "{\"contentType\": \"${contentType}\"}"
