@@ -34,5 +34,14 @@
     "deleteAppDataOnUninstall": true,
     "allowToChangeInstallationDirectory": true,
     "guid": "261e8d0f-3307-4c5e-af08-501d06bc39d8"
-  }
+  },
+  "extraMetadata": {
+    "HOME_PAGE": "https://chat.xiaoniaoai.com/home"
+  },
+  "extraResources": [
+    {
+      "from": "electron-builder.json",
+      "to": "config.json"
+    }
+  ]
 }

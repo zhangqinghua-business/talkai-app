@@ -19,13 +19,13 @@ const electronJson = JSON.parse(fs.readFileSync("electron-builder.json"));
 // electronJson.nsis.guid = guid();
 
 // 3. 动态修改应用名称
-const productName = process.env.APP_NAME || 'unkonw_app'
-console.log('productName: ', productName);
+const APP_NAME = process.env.APP_NAME || 'unkonw_app'
+electronJson.productName = APP_NAME;
 
-electronJson.productName = productName;
-// 在 github windows-laestest 环境中不能读取带空格的文件路径，所以直接修改安装包名字 -> talkai Setup 1.0.0.exe
-// electronJson.win.artifactName = productName + '.exe'
-// electronJson.artifactName = productName;
+// 4. 写入主页 (写入配置文件，然后在运行时候读取配置文件)
+const HOME_PAGE = process.env.HOME_PAGE || 'unkonw_app'
+electronJson.extraMetadata.HOME_PAGE = HOME_PAGE;
+
 
 // 4. 重新写入文件
 fs.writeFileSync("electron-builder.json", JSON.stringify(electronJson, null, 2));

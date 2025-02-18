@@ -1,7 +1,13 @@
-import { app, BaseWindow, BrowserWindow, ipcMain, screen, shell } from 'electron';
+import { app, BaseWindow, BrowserWindow, globalShortcut, ipcMain, screen, shell } from 'electron';
 import path from 'path';
 import { getWeibo } from './src/weiboAuth';
 import { getXiaohongshuAuth } from './src/xiaohongshuAuth';
+const fs = require('fs');
+
+// 读取配置文件
+const packageJsonPath = path.join(process.resourcesPath, 'config.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+
 
 const getCookie = async (mainWindow: BaseWindow, type: 'weibo' | 'xiaohongshu', params?: any, ) => {
   console.log('请求获取cookie: ', type);
@@ -28,9 +34,9 @@ const createWindow = async () => {
   })
 
   // 2. 配置控制台快捷键
-  // globalShortcut.register('f12', function () {
-  //   mainWindow?.webContents.openDevTools({ mode: 'bottom' })
-  // })
+  globalShortcut.register('f12', function () {
+    mainWindow?.webContents.openDevTools({ mode: 'bottom' })
+  })
 
   // 3. 使用浏览器打开链接（文档，下载链接之类的）
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
@@ -52,7 +58,7 @@ const createWindow = async () => {
   // mainWindow?.loadURL('https://ai.mabbk.cn/home')
   // mainWindow?.loadURL('https://vipai.m3xm.cn/home')
   // mainWindow?.loadURL('https://xiaoniaoai.yunjiazd.com/home')
-  mainWindow?.loadURL(process.env.HOME_PAGE || 'https://www.baidu.com')
+  mainWindow?.loadURL(packageJson?.extraMetadata?.HOME_PAGE || 'https://www.baidu.com')
 }
 
 // 创建窗口
