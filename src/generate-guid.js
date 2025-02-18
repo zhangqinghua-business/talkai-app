@@ -22,6 +22,7 @@ const electronJson = JSON.parse(fs.readFileSync("electron-builder.json"));
 const productName = process.env.PRODUCT_NAME || 'unkonw_app'
 console.log('productName: ', productName);
 
+electronJson.filename = productName;
 electronJson.productName = productName;
 
 // 4. 重新写入文件

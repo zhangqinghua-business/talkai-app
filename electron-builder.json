@@ -1,7 +1,8 @@
 {
   "publish": false,
   "appId": "com.zhangqinghua.app",
-  "productName": "小鸟AI",
+  "filename": "unkonw_app",
+  "productName": "unkonw_app",
   "directories": {
     "output": "release"
   },
