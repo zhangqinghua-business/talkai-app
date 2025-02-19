@@ -35,6 +35,14 @@ jobs:
     outputs:
       fileUrl: ${{ steps.upload.outputs.fileUrl }}
     steps:
+      - name: 检查参数
+        run: |
+          echo "任务编号: ${{ github.event.inputs.id }}"
+          echo "接口地址: ${{ github.event.inputs.api }}"
+          echo "应用图标: ${{ github.event.inputs.appIcon }}"
+          echo "应用名称: ${{ github.event.inputs.appName }}"
+          echo "首页地址: ${{ github.event.inputs.homePage }}"
+          
       - name: 拉取代码
         uses: actions/checkout@v3
         with:
@@ -48,10 +56,10 @@ jobs:
       - name: 安装依赖
         run: npm install
 
-      # - name: 下载图标
-      #   if: ${{ github.event.inputs.appIcon != '' }}
-      #   run: |
-      #     curl -f -o assets/icon.png ${{ github.event.inputs.appIcon }}
+      - name: 下载图标
+        if: ${{ github.event.inputs.appIcon != '' }}
+        run: |
+          curl -f -o assets/icon.png ${{ github.event.inputs.appIcon }}
 
       - name: 编译应用
         run: npm run build
