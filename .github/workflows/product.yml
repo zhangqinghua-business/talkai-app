@@ -86,8 +86,9 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.dmg
           echo "::set-output name=fileUrl::$fileUrl"
+
+          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.dmg
           
   build_windows:
     name: 编译应用(Windows)
@@ -138,9 +139,9 @@ jobs:
           echo ${fileUrl}
           echo ${uploadUrl}
 
-          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.exe
-          
           echo "::set-output name=fileUrl::$fileUrl"
+
+          curl --location --request PUT "$uploadUrl" --header "Content-Type: $contentType" --data-binary @release/install.exe
           
   post_build:
     name: 数据汇总
@@ -155,4 +156,3 @@ jobs:
           appleIntel=${{ needs.build_macos.outputs.fileUrl }}
 
           curl -X POST ${{ github.event.inputs.api }}/base/software_record/built -H "Content-Type: application/json" -d "{\"id\": \"${{ github.event.inputs.id }}\", \"software\": { \"windows\": \"$windows\", \"appleIntel\": \"$appleIntel\" } }"
-
