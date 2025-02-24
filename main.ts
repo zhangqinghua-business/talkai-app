@@ -1,8 +1,13 @@
-import { app, BaseWindow, BrowserWindow, globalShortcut, ipcMain, screen, shell } from 'electron';
+import { BaseWindow, BrowserWindow, globalShortcut, ipcMain, screen, shell } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import { getWeibo } from './src/weiboAuth';
 import { getXiaohongshuAuth } from './src/xiaohongshuAuth';
+const log = require('electron-log');
+log.transports.file.level = 'debug';
+
 const fs = require('fs');
+autoUpdater.logger = log;
 
 // 读取配置文件
 let packageJson = {} as any
@@ -52,18 +57,53 @@ const createWindow = async () => {
   ipcMain.handle('getCookie', (_, type, params) => getCookie(mainWindow, type, params))
 
   // 5. 加载链接
-  mainWindow?.loadURL(packageJson?.extraMetadata?.HOME_PAGE || 'http://localhost:3000/home')
+  mainWindow?.loadURL(packageJson?.extraMetadata?.HOME_PAGE || 'https://www.baidu.com')
+  // mainWindow?.loadURL('https://chat.xiaoniaoai.com/home')
+
+  // autoUpdater.setFeedURL({
+  //   url: 'http://localhost:8071/base/software_record/updates', // 你的自定义更新服务器地址
+  //   provider: 'generic',
+  // });
+  
+  // autoUpdater.checkForUpdates()
+
+  // log.info('开始检查更新');
+  
 }
 
-// 创建窗口
-app.on('ready', createWindow);
+// log.info('开始检查更新1111');
 
-// 如果没有窗口打开则打开一个窗口 (macOS)
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow()
-})
+// // 创建窗口
+// app.on('ready', createWindow);
 
-// 关闭所有窗口时退出应用 (Windows & Linux & macOS)
-app.on('window-all-closed', () => {
-  app.quit()
-})
+// // 如果没有窗口打开则打开一个窗口 (macOS)
+// app.on('activate', () => {
+//   if (BrowserWindow.getAllWindows().length === 0) createWindow()
+// })
+
+// // 关闭所有窗口时退出应用 (Windows & Linux & macOS)
+// app.on('window-all-closed', () => {
+//   app.quit()
+// })
+
+
+
+
+
+// autoUpdater.checkForUpdatesAndNotify()
+
+autoUpdater.on('update-available', (info) => {
+  // console.log('Update available:', info.version);
+  log.info('Update available:', info);
+
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  log.info('Update downloaded:', info);
+  // console.log('Update downloaded:', info.version);
+  // autoUpdater.quitAndInstall();
+});
+
+autoUpdater.on('error', (error) => {
+  log.info('Update error:', error);
+});

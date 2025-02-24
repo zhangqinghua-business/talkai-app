@@ -1,8 +1,5 @@
 {
-  "publish": {
-    "provider": "generic",
-    "url": ""
-  },
+  "publish": false,
   "appId": "com.zhangqinghua.app",
   "productName": "unkonw_app",
   "directories": {
@@ -36,7 +33,7 @@
     "uninstallDisplayName": "${productName}",
     "deleteAppDataOnUninstall": true,
     "allowToChangeInstallationDirectory": true,
-    "guid": "261e8d0f-3307-4c5e-af08-501d06bc39d8"
+    "guid": "92b9443f-2a16-443f-9b53-6e21cba302e0"
   },
   "extraMetadata": {
     "HOME_PAGE": "unkonw_app"
