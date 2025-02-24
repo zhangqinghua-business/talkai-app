@@ -1,7 +1,7 @@
 {
   "name": "talkai-app",
   "main": "dist/main.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "start": "tsc && electron .",
     "prebuild": "node ./src/generate-guid.js",
