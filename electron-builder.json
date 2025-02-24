@@ -1,5 +1,8 @@
 {
-  "publish": false,
+  "publish": {
+    "provider": "generic",
+    "url": ""
+  },
   "appId": "com.zhangqinghua.app",
   "productName": "unkonw_app",
   "directories": {
@@ -36,7 +39,7 @@
     "guid": "261e8d0f-3307-4c5e-af08-501d06bc39d8"
   },
   "extraMetadata": {
-    "HOME_PAGE": "https://chat.xiaoniaoai.com/home"
+    "HOME_PAGE": "unkonw_app"
   },
   "extraResources": [
     {

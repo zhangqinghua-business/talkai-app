@@ -5,8 +5,14 @@ import { getXiaohongshuAuth } from './src/xiaohongshuAuth';
 const fs = require('fs');
 
 // 读取配置文件
-const packageJsonPath = path.join(process.resourcesPath, 'config.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+let packageJson = {} as any
+try {
+  const packageJsonPath = path.join(process.resourcesPath, 'config.json');
+  packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+} catch(error) {
+  console.error(error);
+}
+
 
 
 const getCookie = async (mainWindow: BaseWindow, type: 'weibo' | 'xiaohongshu', params?: any, ) => {
@@ -34,9 +40,7 @@ const createWindow = async () => {
   })
 
   // 2. 配置控制台快捷键
-  globalShortcut.register('f12', function () {
-    mainWindow?.webContents.openDevTools({ mode: 'bottom' })
-  })
+  globalShortcut.register('f12', () =>  mainWindow?.webContents.openDevTools({ mode: 'bottom' }))
 
   // 3. 使用浏览器打开链接（文档，下载链接之类的）
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
@@ -48,17 +52,7 @@ const createWindow = async () => {
   ipcMain.handle('getCookie', (_, type, params) => getCookie(mainWindow, type, params))
 
   // 5. 加载链接
-  // mainWindow?.loadURL('http://localhost:3000')
-  // mainWindow?.loadURL('https://zdh.sourceai.top/home')
-  // mainWindow?.loadURL('https://chat.xiaoniaoai.com/home')
-  // mainWindow?.loadURL('https://ai.top911.cn/home')
-  // mainWindow?.loadURL('https://test.xiaoniaoai.com/home')
-  // mainWindow?.loadURL('https://ai.zmt.cool/home')
-  // mainWindow?.loadURL('https://juyunapp.cn/home')
-  // mainWindow?.loadURL('https://ai.mabbk.cn/home')
-  // mainWindow?.loadURL('https://vipai.m3xm.cn/home')
-  // mainWindow?.loadURL('https://xiaoniaoai.yunjiazd.com/home')
-  mainWindow?.loadURL(packageJson?.extraMetadata?.HOME_PAGE || 'https://www.baidu.com')
+  mainWindow?.loadURL(packageJson?.extraMetadata?.HOME_PAGE || 'http://localhost:3000/home')
 }
 
 // 创建窗口
