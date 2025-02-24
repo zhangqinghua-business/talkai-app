@@ -1,4 +1,4 @@
-import { BaseWindow, BrowserWindow, globalShortcut, ipcMain, screen, shell } from 'electron';
+import { app, BaseWindow, BrowserWindow, globalShortcut, ipcMain, screen, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import { getWeibo } from './src/weiboAuth';
@@ -73,37 +73,33 @@ const createWindow = async () => {
 
 // log.info('开始检查更新1111');
 
-// // 创建窗口
-// app.on('ready', createWindow);
+// 创建窗口
+app.on('ready', createWindow);
 
-// // 如果没有窗口打开则打开一个窗口 (macOS)
-// app.on('activate', () => {
-//   if (BrowserWindow.getAllWindows().length === 0) createWindow()
-// })
+// 如果没有窗口打开则打开一个窗口 (macOS)
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow()
+})
 
-// // 关闭所有窗口时退出应用 (Windows & Linux & macOS)
-// app.on('window-all-closed', () => {
-//   app.quit()
-// })
-
-
-
+// 关闭所有窗口时退出应用 (Windows & Linux & macOS)
+app.on('window-all-closed', () => {
+  app.quit()
+})
 
 
 // autoUpdater.checkForUpdatesAndNotify()
+// autoUpdater.on('update-available', (info) => {
+//   // console.log('Update available:', info.version);
+//   log.info('Update available:', info);
 
-autoUpdater.on('update-available', (info) => {
-  // console.log('Update available:', info.version);
-  log.info('Update available:', info);
+// });
 
-});
+// autoUpdater.on('update-downloaded', (info) => {
+//   log.info('Update downloaded:', info);
+//   // console.log('Update downloaded:', info.version);
+//   // autoUpdater.quitAndInstall();
+// });
 
-autoUpdater.on('update-downloaded', (info) => {
-  log.info('Update downloaded:', info);
-  // console.log('Update downloaded:', info.version);
-  // autoUpdater.quitAndInstall();
-});
-
-autoUpdater.on('error', (error) => {
-  log.info('Update error:', error);
-});
+// autoUpdater.on('error', (error) => {
+//   log.info('Update error:', error);
+// });
